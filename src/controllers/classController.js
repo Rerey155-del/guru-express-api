@@ -8,7 +8,6 @@ const getClasses = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
-
 const createClass = async (req, res) => {
   const { class_designation, room_id, utilization } = req.body;
   try {
