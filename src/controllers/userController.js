@@ -26,15 +26,15 @@ const login = async (req, res) => {
   const {username, password} = req.body;
   try{
     const [rows] = await pool.query('SELECT * FROM users WHERE username = ?', [username]);
-    if(rows.length === 0 ) return res.status(401).json({ messsage: "Invalid credentials"});
+    if(rows.length === 0 ) return res.status(401).json({ message: "Invalid credentials"});
 
     const user = rows[0];
     const isMatch = await bcrypt.compare(password, user.password);
-    if(!isMatch) return res.status(401).json({ messsage: "Invalid credentials"});
+    if(!isMatch) return res.status(401).json({ message: "Invalid credentials"});
 
     const token = jwt.sign({ id: user.id, role: user.role }, process.env.JWT_SECRET, { expiresIn: '1h'});
 
-    res.json({ token, user: { id: user.id, username: user.username, role: user.role }});
+    res.json({ token, user: { id: user.id, username: user.username, role: user.role, full_name: user.full_name }});
     }
     catch(error){
       res.status(500).json({ message: error.message });
