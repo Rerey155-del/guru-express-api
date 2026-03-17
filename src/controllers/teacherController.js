@@ -67,7 +67,7 @@ const updateTeacher = async (req, res) => {
       'UPDATE teachers SET name = ?, nip = ?, email = ?, department = ?, status = ? WHERE id = ?',
       [name, nip, email, department, status, id]
     );
-    
+
     const newData = { id, name, nip, email, department, status };
 
     // 3. Catat Audit Log
