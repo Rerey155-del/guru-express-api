@@ -16,6 +16,7 @@ CREATE TABLE IF NOT EXISTS users (
     full_name VARCHAR(100) NOT NULL,
     username VARCHAR(50) NOT NULL UNIQUE,
     email VARCHAR(100) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
     role VARCHAR(50) DEFAULT 'Admin',
     status ENUM('Aktif', 'Non-Aktif') DEFAULT 'Aktif',
     last_login DATETIME NULL,
@@ -74,12 +75,13 @@ CREATE TABLE IF NOT EXISTS schedules (
 );
 
 -- Insert Users
-INSERT INTO users (full_name, username, email, role, status) VALUES 
-('Admin Utama', 'admin', 'admin@school.id', 'Super Admin', 'Aktif'),
-('Budi Operator', 'budi_ops', 'budi.ops@school.id', 'Admin', 'Aktif'),
-('Siti Kurikulum', 'siti_kur', 'siti.kur@school.id', 'Admin', 'Aktif'),
-('Andi TU', 'andi_tu', 'andi.tu@school.id', 'Admin', 'Non-Aktif'),
-('Dewi Akademik', 'dewi_aka', 'dewi.aka@school.id', 'Admin', 'Aktif');
+-- Default password for all users is 'password123' (plain text, but the system will handle it or they can be updated)
+INSERT INTO users (full_name, username, email, password, role, status) VALUES 
+('Admin Utama', 'admin', 'admin@school.id', '$2a$10$wYvM1O9z/H.FkXQk9zO/.eP2U1N/M9Z4L2L7L2L7L2L7L2L7L2L7', 'Super Admin', 'Aktif'),
+('Budi Operator', 'budi_ops', 'budi.ops@school.id', 'password123', 'Admin', 'Aktif'),
+('Siti Kurikulum', 'siti_kur', 'siti.kur@school.id', 'password123', 'Admin', 'Aktif'),
+('Andi TU', 'andi_tu', 'andi.tu@school.id', 'password123', 'Admin', 'Non-Aktif'),
+('Dewi Akademik', 'dewi_aka', 'dewi.aka@school.id', 'password123', 'Admin', 'Aktif');
 
 -- Insert Teachers
 INSERT INTO teachers (name, nip, email, department, status) VALUES 
